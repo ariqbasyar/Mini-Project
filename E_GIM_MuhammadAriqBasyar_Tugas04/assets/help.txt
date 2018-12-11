@@ -1,0 +1,5 @@
+
+Keys:
+(Space : Jump)
+(Arrow-up  : Jump)
+(Esc   : Pause the game)
