@@ -501,7 +501,8 @@ class Game:
                         while True:
 
                             # The title is Game Over
-                            self.pause_text = self.make_text("Game Over", self.font, 49, (0, 255, 255))
+                            self.pause_text = self.make_text("Game Over",
+                                            self.font, 49, (0, 255, 255))
                             self.screen.blit(self.pause_text, (245, 100))
 
                             # The player's score
