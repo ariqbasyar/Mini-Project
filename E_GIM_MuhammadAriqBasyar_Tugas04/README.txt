@@ -56,5 +56,5 @@ Installation:
 
 
 To Play:
-    Double click the "E_GIM_MuhammadAriqBasyar_Tugas04.py"
+    Double click the "E_GIM_1806205110_MuhammadAriqBasyar_Tugas04.py"
     You can jump with Space or Arrow-up and pause the game with Esc
