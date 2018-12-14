@@ -49,14 +49,14 @@ class Game:
         # Default bes score is 0
         self.best_score_val = 0
 
-        # searching a file and read to get the save file of best score
-        file_log = self.search("LOG.txt") + "/" + "LOG.txt"
-        file = open(file_log, "r")
-        isi_file = file.read().split()
-        file.close()
 
-        # Checking the file if the file is real to minimize expliotation
+        # searching a file and read to get the save file of best score
         try:
+            file_log = self.search("LOG.txt") + "/" + "LOG.txt"
+            file = open(file_log, "r")
+            isi_file = file.read().split()
+            file.close()
+            # Checking the file if the file is real to minimize expliotation
             self.isi_log = isi_file[0]
             decoded_isinya = str(base64.b64decode(self.isi_log))[2:-1]
             if decoded_isinya[:13] == "best score = " :
@@ -82,13 +82,16 @@ class Game:
     """
     def save_the_score(self):
 
-        # Search the file with my function and open it
-        file_output = self.search("LOG.txt") + "/" + "LOG.txt"
-        file = open(file_output, "w")
+        try:
+            # Search the file with my function and open it
+            file_output = self.search("LOG.txt") + "/" + "LOG.txt"
+            file = open(file_output, "w")
 
-        # Write a base64 encoding for the best score
-        file.write(str(base64.b64encode(f'best score = {self.best_score_val:.1f}'.encode()))[2:-1])
-        file.close()
+            # Write a base64 encoding for the best score
+            file.write(str(base64.b64encode(f'best score = {self.best_score_val:.1f}'.encode()))[2:-1])
+            file.close()
+        except Exception as err:
+            raise err
 
     """
     Defining a menu session for
@@ -250,14 +253,19 @@ class Game:
     """
     def about_session(self):
 
-        # Searching the file of about me and open it
-        # Also write it on the screen of Game
-        file_about = self.search("ABOUT ME.txt") + "/" + "ABOUT ME.txt"
-        file = open(file_about, "r")
-        isi = list(map(lambda s: s.strip(), file.readlines()))
-        file.close()
-        x = 20
+        try:
+            # Searching the file of about me and open it
+            # Also write it on the screen of Game
+            file_about = self.search("ABOUT ME.txt") + "/" + "ABOUT ME.txt"
+            file = open(file_about, "r")
+            isi = list(map(lambda s: s.strip(), file.readlines()))
+            file.close()
+        except:
+            isi = ["sorry, we can't find the about file",
+                    "please make sure you download the file from ouw github",
+                    "github.com/ariqbasyar/Mini-Project"]
 
+        x = 20
         # The mainloop of the about session
         while True:
 
@@ -303,10 +311,17 @@ class Game:
     help session
     """
     def help_session(self):
-        file_help = self.search("help.txt") + "/" + "help.txt"
-        file = open(file_help, "r")
-        isi = list(map(lambda s: s.strip(), file.readlines()))
-        file.close()
+
+        # Making sure the file is exist
+        try:
+            file_help = self.search("help.txt") + "/" + "help.txt"
+            file = open(file_help, "r")
+            isi = list(map(lambda s: s.strip(), file.readlines()))
+            file.close()
+        except:
+            isi = ["sorry, we can't find the help file",
+                    "please make sure you download the file from ouw github",
+                    "github.com/ariqbasyar/Mini-Project"]
 
         # Mainloop of the help session
         while True:
