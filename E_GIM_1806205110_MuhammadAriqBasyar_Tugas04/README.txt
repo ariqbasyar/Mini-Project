@@ -61,14 +61,15 @@ Installation:
 
 
   8.  Install Pygame dependencies: Pygame requires several other helper programs, called dependencies, so that it can show 
-      animations, play sounds, and create game graphics. Type the following three lines at the Terminal command prompt, hitting return after each line
+      animations, play sounds, and create game graphics. Type the following three lines at the Terminal command prompt, 
+      hitting return after each line
       
 	brew install sdl sdl_image sdl_mixer sdl_ttf portmidi
       	brew tap homebrew/headonly
       	brew install smpeg
       
-      (NOTE 18JUL2015: Updated to reflect changes to the smpeg library; if you have any trouble here, try brew install –HEAD smpeg instead, with two 
-      dashes/hyphens before the HEAD option).
+      (NOTE 18 JUL 2015: Updated to reflect changes to the smpeg library; if you have any trouble here, try brew install –HEAD 
+      smpeg instead, with two dashes/hyphens before the HEAD option).
       Each command will take a few moments to run and display screens full of information; keep going, you’re almost done…
 
 
@@ -76,8 +77,8 @@ Installation:
       
 	sudo pip3 install hg+http://bitbucket.org/pygame/pygame
       
-      You may have to enter an administrator password (your password, or ask an IT administrator for help at school, work, or the library), and the 
-      installation may take a few minutes.
+      You may have to enter an administrator password (your password, or ask an IT administrator for help at school, work, or the 
+      library), and the installation may take a few minutes.
 
 
 
