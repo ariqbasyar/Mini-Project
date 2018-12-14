@@ -5,7 +5,7 @@ searching a file
 Importing base64 to save the score on another file
 with base64 encoding
 
-Importing the pygame to make the GUI and all the
+Importing the pygame to make the window and all the
 mechanic functions
 
 Importing sys to break the mainloop if the
@@ -17,7 +17,6 @@ Importing the Class of Character and Obstacle
 from another files
 """
 import os, base64, pygame, sys, random
-sys.path.append("../")
 from pygame.locals import *
 from assets.character import Character
 from assets.obstacle import Obstacle
@@ -107,9 +106,11 @@ class Game:
                             self.font, 60, (255, 255, 0))
             self.best_score = self.make_text(f"Best Score: {self.best_score_val}",
                             self.font, 25, (140, 128, 120))
-            self.start = self.make_text("Start", self.font, 30, (100, 255, 150))
+            self.start = self.make_text("Start", self.font, 30,
+                            (100, 255, 150))
             self.help = self.make_text("Help", self.font, 30, (100, 255, 150))
-            self.about = self.make_text("About", self.font, 30, (100, 255, 150))
+            self.about = self.make_text("About", self.font, 30,
+                            (100, 255, 150))
             self.exit = self.make_text("Exit", self.font, 30, (100, 255, 150))
             self.reset = self.make_text("Reset", self.font, 25, (0, 0, 0))
 
@@ -117,7 +118,8 @@ class Game:
             self.screen.blit(self.header,
                 (self.screen_width/2 - (self.header.get_rect()[2]/2), 100))
             self.screen.blit(self.best_score,
-                (self.screen_width/2 - (self.best_score.get_rect()[2]/2), 230))
+                (self.screen_width/2 - (self.best_score.get_rect()[2]/2),
+                    230))
             self.screen.blit(self.start,
                 (self.screen_width/2 - (self.start.get_rect()[2]/2), 300))
             self.screen.blit(self.help,
@@ -576,35 +578,45 @@ class Game:
                     # If collide on top side of obstacle
                     else:
                         self.char.rect.y = i.rect.y - i.rect.height
-                        self.naik = False
+                        self.turun = False
                         self.velocity_index = 0
                         if (pygame.key.get_pressed()[K_UP] or pygame.key.get_pressed()[K_SPACE]):
                             self.naik = True
-                            self.turun = False
 
+                # Make the gravity and the character is always going to down
+                # the character's oordinate is below 469 and the character
+                # is not down
                 elif self.char.rect.y < 469 and not self.naik:
                     self.turun = True
 
-
+            # Make the list of velocity to up and down
             self.vel_naik = [i/3 for i in range (-40, 1, 2)]
             self.vel_turun = [i/3 for i in range (0, 41, 2)]
 
-            # self.vel_naik = [-5]
-            # self.vel_turun = [5]
-
+            # Make the up algorithm
             if self.naik:
                 self.char.rect.y += self.vel_naik[self.velocity_index]
                 self.velocity_index += 1
+
+                # The character is going to down if the velocity index is
+                # greater than the length of list of velocity
                 if self.velocity_index >= len(self.vel_naik) - 1:
+
+                    # Make the index is back to zero and self.turun is True
                     self.velocity_index = 0
                     self.naik = False
                     self.turun = True
 
+            # Also the down algorithm
             if self.turun:
                 self.char.rect.y += self.vel_turun[self.velocity_index]
                 self.velocity_index += 1
                 if self.velocity_index >= len(self.vel_turun) - 1:
                     self.velocity_index -= 1
+
+                # If the character's oordinate is above 470, the character's
+                # orrdinate is 470 so the character doesn't go to the below
+                # of the land
                 if self.char.rect.y >= 470:
                     self.char.rect.y = 470
                     self.velocity_index = 0
@@ -616,8 +628,9 @@ class Game:
 
             # Counter for the score
             self.current_score += 0.2
-            fps += 0.06
 
+            # Make the game is faster every loop
+            fps += 0.02
 
             # Checks all event on the game
             for event in pygame.event.get():
@@ -637,45 +650,68 @@ class Game:
                 # Check if player want to pause the game
                 if pygame.key.get_pressed()[K_ESCAPE] :
 
+                    # Make the transparant black blocks for the pause menu
                     pause_image_1 = Obstacle((0, 0, 0), 250, 100, 300, 400)
                     pause_image_1.set_alpha(90)
-
                     pause_image_2 = Obstacle((0, 0, 0), 0, 0, 800, 600)
                     pause_image_2.set_alpha(120)
 
+                    # Grouping the sprites of pause menu
                     list_of_pause = pygame.sprite.Group()
+
+                    # Add all the transparant black blocks to the
+                    # sprites group
                     list_of_pause.add(pause_image_1, pause_image_2)
+
+                    # Draw all the list of sprites to the main screen
                     list_of_pause.draw(self.screen)
 
                     # Pause screen's mainloop
                     while True:
+
+                        # Make all the text of pause menu
+                        # The title "Paused"
                         self.pause_text = self.make_text("Paused",
                                 self.font, 59, (100, 255, 255))
                         self.screen.blit(self.pause_text, (265, 125))
 
+                        # The text "Resume"
                         self.resume_text = self.make_text("Resume",
                                 self.font, 40, (0, 255, 255))
                         self.screen.blit(self.resume_text, (302, 230))
 
+                        # The text "Restart"
                         self.restart_text = self.make_text("Restart",
                                 self.font, 40, (0, 255, 255))
                         self.screen.blit(self.restart_text, (305, 300))
 
+                        # The text "Menu"
                         self.menu_text = self.make_text("Menu",
                                 self.font, 40, (0, 255, 255))
                         self.screen.blit(self.menu_text, (330, 370))
 
+                        # The text "exit"
                         self.exit_text = self.make_text("Exit",
                                 self.font, 40, (0, 255, 255))
                         self.screen.blit(self.exit_text, (350, 440))
 
-
+                        # Makes the buttons of pause menu with rectangle
+                        # The button "Resume"
                         self.resume_rect = Rect(302, 230, 200, 56)
+
+                        # The button "Restart"
                         self.restart_rect = Rect(305, 300, 272, 82)
+
+                        # The button "Menu"
                         self.menu_rect = Rect(330, 370, 200, 56)
+
+                        # The button "exit"
                         self.exit_rect = Rect(350, 440, 145, 56)
 
+                        # Don't forget to always update the screen
                         pygame.display.update()
+
+                        # The event is wait and waiting for the next event
                         event = pygame.event.wait()
 
                         # Checks if the player is pressing something
@@ -688,13 +724,26 @@ class Game:
 
                         # Checks if the playes is clicking something
                         if event.type == MOUSEBUTTONDOWN:
+
+                            # Gets the mouse position
                             mouse_pos = event.pos
+
+                            # Checks if the mouse position if above the button
                             if self.resume_rect.collidepoint(mouse_pos):
                                 break
+
                             if self.restart_rect.collidepoint(mouse_pos):
+
+                                # Go to the main program if the mouse hit the
+                                # "Restart" button
                                 self.main()
+
                             if self.menu_rect.collidepoint(mouse_pos):
+
+                                # Go back to the menu if the mouse hit the
+                                # "Menu" button
                                 self.menu()
+
                             if self.exit_rect.collidepoint(mouse_pos):
                                 self.save_the_score()
                                 pygame.quit()

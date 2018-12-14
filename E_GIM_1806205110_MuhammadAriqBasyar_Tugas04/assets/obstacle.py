@@ -7,7 +7,7 @@ to the game
 """
 class Obstacle(pygame.sprite.Sprite):
     """
-    Initiating all the unit that is impportant
+    Initiating all the important units
     """
     def __init__(self, color, x, y, width, height):
 
@@ -46,12 +46,12 @@ class Obstacle(pygame.sprite.Sprite):
 
         # Moving the object with decreasing the value of x
         self.rect.x -= 2
+
+        # If the obstacle is passed out through the screen
         if self.rect.x <= -self.rect.width:
             self.color = (random.randint(0, 255),
                             random.randint(0, 255),
                             random.randint(0, 255))
-            # self.rect.width = random.choice([80, 120, 40, 160])
-            # self.rect.height = random.randint(1, 80)
             self.rect.y = random.choice([470, 430, 390])
             self.rect.x = 800
 

@@ -3,4 +3,4 @@ Wellcome to my Mini Project!
     Let me introduce my self, my name is Muhammad Ariq Basyar
 from faculty of computer science University of Indonesia.
 this is my mini project that maybe have a lots of bugs, so
-please email me (ariqbasyar3@gmail.com) if you want to improve this,
+please email me (ariqbasyar2@gmail.com) if you want to improve this,
